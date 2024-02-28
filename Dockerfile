@@ -1,14 +1,8 @@
-FROM maven:latest AS build
+FROM maven:3.8.5-openjdk-17 AS build
+COPY . .
+RUN mvn clean package -DskipTests
 
-COPY . /app
-WORKDIR /app
-
-RUN mvn clean package
-
-FROM openjdk:17-jdk-slim
-
+FROM openjdk:17.0.1-jdk-slim
+COPY --from=build /target/ReactAssignment-0.0.1-SNAPSHOT.jar ReactAssignment.jar
 EXPOSE 8080
-
-COPY --from=build /target/ReactAssignment.jar ReactAssignment.jar
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","demo.jar"]
