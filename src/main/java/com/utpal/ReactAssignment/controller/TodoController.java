@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @CrossOrigin("http://localhost:5173/")
 public class TodoController {
@@ -28,7 +27,7 @@ public class TodoController {
         return todoService.getTodos();
     }
 
-    @GetMapping("/getTodos/{id}")
+    @GetMapping("/getTodo/{id}")
     public ResponseEntity<Object> fetchbyId(@PathVariable("id") Long Id){
         Todos todo = todoService.getTodobyId(Id);
         if (todo != null) {
@@ -38,7 +37,7 @@ public class TodoController {
         }
     }
 
-    @PutMapping("/setTodo/{id}")
+    @PutMapping("/updateTodo/{id}")
     public Todos updatebyId(@PathVariable("id") Long Id, @RequestBody Todos todo){
         return todoService.updatebyId(Id, todo);
     }
